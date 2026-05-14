@@ -8,6 +8,8 @@ scikit-learn
 scipy
 dill
 pyaml
-mlflow
-
+mlflow==2.14.3
+dagshub
+fastapi
+uvicorn
 ##-e .
