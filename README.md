@@ -149,32 +149,54 @@ Tracked per run:
 ```
 NETWORKSECURITY/
 ├── app.py                          # FastAPI entrypoint
+├── main.py                         # Alternate entrypoint / local runner
+├── push_data.py                    # Script to push data to MongoDB
+├── test_mongodb.py                 # MongoDB connection test
+├── setup.py
 ├── Dockerfile
+├── railway.json                    # Railway deployment config
 ├── requirements.txt
-├── Artifacts/                      # Pipeline outputs (gitignored)
-│   └── <timestamp>/
-│       ├── data_ingestion/
-│       ├── data_validation/
-│       ├── data_transformation/
-│       │   └── transformed_object/
-│       │       └── preprocessing.pkl
-│       └── model_trainer/
+├── mlflow.db                       # Local MLflow tracking store
+├── .env                            # Environment variables (gitignored)
+├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── main.yml                # CI/CD pipeline
+├── data_schema/                    # Schema definitions for validation
+├── Network_Data/                   # Raw network traffic data
 ├── networksecurity/
+│   ├── cloud/                      # Cloud storage utilities
 │   ├── components/
 │   │   ├── data_ingestion.py
 │   │   ├── data_validation.py
 │   │   ├── data_transformation.py
 │   │   └── model_trainer.py
+│   ├── constant/                   # Project-wide constants
 │   ├── entity/
 │   │   ├── config_entity.py
 │   │   └── artifact_entity.py
-│   ├── pipeline/
-│   │   └── training_pipeline.py
 │   ├── exception/
 │   │   └── exception.py
-│   └── logging/
-│       └── logger.py
+│   ├── logging/
+│   │   └── logger.py
+│   ├── pipeline/
+│   │   └── training_pipeline.py
+│   ├── utils/                      # Helper functions
+│   └── __init__.py
+├── notebooks/                      # EDA and experimentation
+├── prediction_output/              # Stored prediction results
+├── templates/
+│   └── table.html                  # Prediction results UI
+└── tests/
+    ├── __init__.py
+    └── test_basic.py
 ```
+
+---
+
+## ⚙️ CI/CD
+
+GitHub Actions is configured via `.github/workflows/main.yml`. On every push the workflow runs tests and triggers a Railway redeploy.
 
 ---
 
