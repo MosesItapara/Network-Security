@@ -1,38 +1,22 @@
 name: workflow
 
 on:
-    push:
-        branches:
-            - main
-        paths-ignore:
-            - 'README.md'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
 
 jobs:
-    integration:
-        name: Continuous Integration
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - name: Build Docker image
-              run: docker build -t network-security-app .
+      - name: Build Docker image
+        run: docker build -t network-security-app .
 
-            - name: Run tests
-              run: docker run network-security-app pytest tests/
-    
-    
-    deploy:
-        name: Continuous Deployment
-        runs-on: ubuntu-latest
-        needs: integration
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-
-            - name: Deploy to Railway
-              run: |
-                npm install -g @railway/cli
-                railway up --detach
-              env:
-                RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Run tests
+        run: docker run network-security-app pytest tests/
